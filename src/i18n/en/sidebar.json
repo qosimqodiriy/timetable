@@ -1,0 +1,18 @@
+{
+  "organization": "Organization",
+  "classes": "Classes",
+  "teachers": "Teachers",
+  "subjects": "Subjects",
+  "rooms": "Rooms",
+  "lessons": "Lessons",
+  "templates": "Templates",
+  "timetables": "Timetables",
+  "management": "Management",
+  "select_language": "Select Language",
+  "my_account": "My Account",
+  "profile": "Profile",
+  "settings": "Settings",
+  "logout": "Log out",
+
+  "nnn": "nnn"
+}

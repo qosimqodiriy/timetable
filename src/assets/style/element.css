@@ -1,0 +1,119 @@
+
+/* Input */
+.el-input__wrapper {
+  width: 100% !important;
+  padding: 12px !important;
+  border-radius: 8px !important;
+  /* background-color: #f5f5f5; */
+  height: 40px !important;
+  border: none !important;
+  border: 1px solid #e5e7eb !important;
+  outline: none !important;
+  box-shadow: none !important;
+}
+
+.el-select__wrapper {
+  width: 100%;
+  border-radius: 8px !important;
+  /* background-color: #f5f5f5 !important; */
+  border: 1px solid #e5e7eb !important;
+  height: 40px !important;
+  box-shadow: none !important;
+}
+
+.el-textarea__inner {
+  padding: 12px !important;
+  border-radius: 8px !important;
+  background-color: #f5f5f5 !important;
+  border: none !important;
+  outline: none !important;
+  box-shadow: none !important;
+  border: 1px solid #e5e7eb !important;
+}
+
+.el-input-number,
+.el-date-editor.el-input {
+  width: 100% !important;
+}
+
+.el-input-number .el-input__wrapper {
+  height: 40px !important;
+}
+
+.el-input-number__decrease {
+  height: 19px !important;
+}
+
+.el-input-number__increase {
+  height: 19px !important;
+}
+
+.el-input-number .el-input__wrapper,
+.el-input-number .el-input__wrapper {
+  width: 150px !important;
+  padding-right: 30px !important;
+}
+
+
+
+.el-checkbox {
+  margin: 0 !important;
+}
+
+
+
+/* Button */
+.el-button + .el-button {
+  margin-left: 0 !important;
+}
+
+.el-button {
+  height: 40px !important;
+  border-radius: 8px !important;
+}
+
+
+/* Dialog */
+.el-overlay-dialog {
+  padding: 10px;
+  display: flex;
+  overflow: hidden;
+  align-items: center;
+  overflow-y: auto;
+  justify-content: center;
+}
+
+.el-dialog {
+  margin: 0 !important;
+  border-radius: 16px !important;
+}
+
+
+
+.el-dialog__body {
+  overflow-y: auto;
+  max-height: calc(100vh - 150px);
+}
+
+.el-dialog__body::-webkit-scrollbar {
+  width: 3px !important;
+}
+
+
+.header_none > .el-dialog__header {
+  margin: 0 !important;
+  padding: 0 !important;
+  border: none !important;
+}
+
+
+
+.el-table .cell {
+  overflow: visible !important;
+}
+
+
+
+.el-date-editor.el-date-editor--time .el-input__wrapper {
+  height: auto !important;
+}

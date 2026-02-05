@@ -1,0 +1,18 @@
+{
+  "organization": "Tashkilot",
+  "classes": "Sinflar",
+  "teachers": "O'qituvchilar",
+  "subjects": "Fanlar",
+  "rooms": "Xonalar",
+  "lessons": "Darslar",
+  "templates": "Andozalar",
+  "timetables": "Dars jadvallari",
+  "management": "Boshqaruv",
+  "select_language": "Tilni tanlang",
+  "my_account": "Mening hisobim",
+  "profile": "Profil",
+  "settings": "Sozlamalar",
+  "logout": "Chiqish",
+
+  "nnn": "nnn"
+}

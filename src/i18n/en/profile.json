@@ -1,0 +1,16 @@
+{
+  "title": "Profil",
+  "personalData": "Shaxsiy ma'lumotlar",
+  "language": "Ilova tili",
+  "moreinfo": "Tizim haqida ma’lumot",
+  "help": "Yordam",
+  "newpasword": "Parolni yangilash",
+  "log": "Chiqish",
+  "change": "Parolni tahrirlash",
+  "oldpassword": "Eski parol",
+  "newpaswword": " Yangi parol",
+  "savenewpaswword": "Yangi parolni takrorlang",
+  "ims": "Ism",
+  "surname": "Familiya", 
+  "safety": "Xavfsizlik"
+}

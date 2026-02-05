@@ -1,0 +1,18 @@
+{
+  "organization": "Организация",
+  "classes": "Классы",
+  "teachers": "Учителя",
+  "subjects": "Предметы",
+  "rooms": "Кабинеты",
+  "lessons": "Уроки",
+  "templates": "Шаблоны",
+  "timetables": "Расписания",
+  "management": "Управление",
+  "select_language": "Выберите язык",
+  "my_account": "Мой аккаунт",
+  "profile": "Профиль",
+  "settings": "Настройки",
+  "logout": "Выйти",
+
+  "nnn": "nnn"
+}
