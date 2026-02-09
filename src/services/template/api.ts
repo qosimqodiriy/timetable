@@ -44,7 +44,7 @@ export async function createTemplate_API(payload: TemplateModel): Promise<[null,
 
 export async function updateTemplate_API(payload: TemplateModel): Promise<[null, TemplateModel] | [BaseError, null]> {
     try {
-        const response = <any> await axiosInstance.put('/templates/v1', {
+        const response = <any> await axiosInstance.put(`/templates/v1/${payload.id}`, {
             ...payload
         })
 

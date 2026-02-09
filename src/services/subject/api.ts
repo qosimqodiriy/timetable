@@ -42,7 +42,7 @@ export async function createSubject_API(payload: SubjectModel): Promise<[null, S
 
 export async function updateSubject_API(payload: SubjectModel): Promise<[null, SubjectModel] | [BaseError, null]> {
     try {
-        const response = <any> await axiosInstance.put('/subjects/v1', {
+        const response = <any> await axiosInstance.put(`/subjects/v1/${payload.id}`, {
             ...payload
         })
 

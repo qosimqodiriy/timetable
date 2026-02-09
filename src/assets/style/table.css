@@ -1,0 +1,26 @@
+.el-table__expand-icon {
+    width: 0 !important;
+    display: none !important;
+}
+
+
+
+/* Animatsiya */
+.expanded-row-wrapper {
+    overflow: hidden;
+    transform-origin: top;
+    animation: slideDown 0.4s ease-out forwards;
+}
+
+@keyframes slideDown {
+    0% {
+        opacity: 0;
+        max-height: 0;
+        transform: translateY(-10px) scaleY(0.95);
+    }
+    100% {
+        opacity: 1;
+        max-height: 500px;
+        transform: translateY(0) scaleY(1);
+    }
+}

@@ -42,7 +42,7 @@ export async function createLesson_API(payload: LessonModel): Promise<[null, Les
 
 export async function updateLesson_API(payload: LessonModel): Promise<[null, LessonModel] | [BaseError, null]> {
     try {
-        const response = <any> await axiosInstance.put('/lessons/v1', {
+        const response = <any> await axiosInstance.put(`/lessons/v1/${payload.id}`, {
             ...payload
         })
 

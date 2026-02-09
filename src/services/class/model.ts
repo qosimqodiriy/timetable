@@ -9,5 +9,5 @@ export interface ClassModel {
     rooms: RoomModel[];
     shortName: string;
     teacher: TeacherModel;
-    teacherId: number;
+    teacherId: number | null;
 }

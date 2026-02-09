@@ -47,7 +47,7 @@ export async function createBuilding_API(payload: BuildingModel): Promise<[null,
 export async function updateBuilding_API(payload: BuildingModel): Promise<[null, BuildingModel] | [BaseError, null]> {
     try {
         const companyId = _companyStore.value.id;
-        const response = <any> await axiosInstance.put(`/organizations/${companyId}/buildings`, {
+        const response = <any> await axiosInstance.put(`/organizations/${companyId}/buildings/${payload.id}`, {
             ...payload
         })
 

@@ -10,7 +10,7 @@ export function getClass_DEFAULT(): ClassModel {
     rooms: [],
     shortName: '',
     teacher: getTeacher_DEFAULT(),
-    teacherId: 0,
+    teacherId: null,
   }
 
   return object

@@ -42,7 +42,7 @@ export async function createRoom_API(payload: RoomModel): Promise<[null, RoomMod
 
 export async function updateRoom_API(payload: RoomModel): Promise<[null, RoomModel] | [BaseError, null]> {
     try {
-        const response = <any> await axiosInstance.put('/rooms/v1', {
+        const response = <any> await axiosInstance.put(`/rooms/v1/${payload.id}`, {
             ...payload
         })
 

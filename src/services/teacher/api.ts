@@ -44,7 +44,7 @@ export async function createTeacher_API(payload: TeacherModel): Promise<[null, T
 
 export async function updateTeacher_API(payload: TeacherModel): Promise<[null, TeacherModel] | [BaseError, null]> {
     try {
-        const response = <any> await axiosInstance.put('/teachers/v1', {
+        const response = <any> await axiosInstance.put(`/teachers/v1/${payload.id}`, {
             ...payload
         })
 

@@ -42,7 +42,7 @@ export async function createClass_API(payload: ClassModel): Promise<[null, Class
 
 export async function updateClass_API(payload: ClassModel): Promise<[null, ClassModel] | [BaseError, null]> {
     try {
-        const response = <any> await axiosInstance.put('/classes/v1', {
+        const response = <any> await axiosInstance.put(`/classes/v1/${payload.id}`, {
             ...payload
         })
 
