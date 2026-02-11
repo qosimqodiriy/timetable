@@ -9,7 +9,11 @@ export interface ClassModel {
     teacher: TeacherModel | null;
     teacherId?: number | null;
     rooms: RoomModel[] | null;
-    groups: any[] | null;
     createdDate: string;
     updatedDate: string;
+    groups: ClassGroupsModel[];
+}
+
+export interface ClassGroupsModel {
+    name: string;
 }

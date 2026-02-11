@@ -1,15 +1,16 @@
 <script lang="ts" setup>
-import { ref } from 'vue';
+import { ref, watch } from 'vue';
 import { useRules } from "./rules";
 import { SCHOOL_WORKING_DAYS } from '@/utils';
 import { getRoomsAll_API } from '@/services/room';
 import { getTeachersAll_API } from '@/services/teacher';
-import { createClass_API, updateClass_API, getClass_DEFAULT, type ClassModel} from '@/services/class';
+import { createClass_API, updateClass_API, getClass_DEFAULT, type ClassModel, getClassGroups_DEFAULT } from '@/services/class';
 
 const _formRef = ref();
 const rules = useRules();
 const _visible = ref(false);
 const _loading = ref(false);
+const _checked = ref(false);
 const emit = defineEmits(['update']);
 
 const _rooms = ref<any[]>([]);
@@ -103,6 +104,9 @@ async function loadDropdowns() {
 }
 
 async function open(item: any | null) {
+  console.log("open");
+  console.log(item);
+  
   _visible.value = true;
   if (_teachers.value.length === 0) await loadDropdowns();
 
@@ -114,14 +118,30 @@ async function open(item: any | null) {
       teacherId: parsedItem.teacher?.id || parsedItem.teacherId,
       rooms: parsedItem.rooms?.map((r: any) => r.id) || []
     };
+
+    if(_formData.value.groups?.length > 0) _checked.value = true
   }
 }
 
 function close() {
   _visible.value = false;
+  _checked.value = false;
   _formRef.value?.resetFields();
   _formData.value = getClass_DEFAULT();
 }
+
+const addGroup = () => {
+  _formData.value.groups.push({ name: `${_formData.value.groups.length + 1}-guruh` });
+};
+
+const removeGroup = (index: number) => {
+  _formData.value.groups.splice(index, 1);
+  if (_formData.value.groups.length === 0) _checked.value = false;
+};
+
+watch(() => _checked.value, () => {
+  if(_checked.value && _formData.value.groups.length === 0) _formData.value.groups = getClassGroups_DEFAULT();
+})
 
 async function submit() {
   _formRef.value?.validate(async (valid: boolean) => {
@@ -141,7 +161,7 @@ defineExpose({ open });
 </script>
 
 <template>
-  <el-dialog v-model="_visible" :title="_formData.id ? 'Sinfni tahrirlash' : 'Yangi sinf qo‘shish'" width="680px" @close="close">
+  <el-dialog v-model="_visible" :title="_formData.id ? 'Sinfni tahrirlash' : 'Yangi sinf qo‘shish'" width="600px" @close="close">
     <el-form ref="_formRef" :model="_formData" :rules="rules" label-position="top">
       <div class="grid grid-cols-2 gap-x-4 mb-2">
         <el-form-item label="Sinf nomi" prop="name">
@@ -173,6 +193,25 @@ defineExpose({ open });
             </el-option>
           </el-select>
         </el-form-item>
+      </div>
+
+      <div class="add_class flex flex-col gap-3 mb-5">
+        <div class="flex items-center justify-between">
+          <el-checkbox v-model="_checked">Sinflarni guruhlarga bo'lish</el-checkbox>
+          <i v-if="_checked" @click="addGroup()" class="ri-add-box-line cursor-pointer text-gray-400"></i>
+        </div>
+
+        <transition name="slide">
+          <div v-if="_checked" class="grid grid-cols-2 gap-3">
+            <div v-for="(item, index) in _formData.groups" :key="index">
+              <div class="flex items-center justify-between gap-2 p-3 py-2 border rounded-lg">
+                <el-input v-model="item.name" />
+  
+                <i @click="removeGroup(index)" class="ri-delete-bin-2-line text-gray-400 cursor-pointer !text-xl"></i>
+              </div>
+            </div>
+          </div>
+        </transition>
       </div>
 
 
@@ -209,3 +248,32 @@ defineExpose({ open });
     </el-form>
   </el-dialog>
 </template>
+
+
+<style>
+.add_class .el-checkbox {
+  height: auto !important;
+}
+
+.add_class .el-input__wrapper {
+  padding: 0 !important;
+  height: auto !important;
+  border: none !important;
+  border-radius: 0 !important;
+}
+
+
+.slide-enter-active,
+.slide-leave-active {
+  opacity: 1;
+  max-height: 300px;
+  transition: all 0.3s ease-out;
+}
+
+.slide-enter-from,
+.slide-leave-to {
+  opacity: 0;
+  max-height: 0;
+  transform: translateY(-10px);
+}
+</style>
