@@ -13,7 +13,7 @@ import BaseSidebar from "@/components/Sidebar/index.vue";
         <BaseHeader />
 
         <div class="flex flex-col flex-auto p-5 pr-1.5 overflow-hidden">
-            <div class="content overflow-y-auto pr-3.5 flex-auto">
+            <div class="content overflow-y-scroll pr-3 flex-auto">
                 <router-view />
             </div>
         </div>

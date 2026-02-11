@@ -1,4 +1,4 @@
-import type { LessonModel } from './model'
+import type { LessonAllModel, LessonModel } from './model'
 import { axiosInstance,type BaseError, type BaseListModel, type BaseParamsModel } from '@/services/network'
 
 
@@ -17,9 +17,9 @@ export async function getLessons_API(params: BaseParamsModel): Promise<[BaseErro
     }
 }
 
-export async function getLessonsAll_API(): Promise<[BaseError, null] | [null, LessonModel[]]> {
+export async function getLessonsAll_API(): Promise<[BaseError, null] | [null, LessonAllModel]> {
     try {
-        const response = <LessonModel[]> await axiosInstance.get('/lessons/v1/all')
+        const response = <LessonAllModel> await axiosInstance.get('/lessons/v1/all')
         
         return [null, response]
     } catch (error) {

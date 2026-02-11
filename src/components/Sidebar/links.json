@@ -3,42 +3,42 @@
     "to": "/home/classes",
     "name": "sidebar.classes",
     "icon": "ri-book-open-line",
-    "count": 0
+    "visible": true
   },
   {
     "to": "/home/teachers",
     "name": "sidebar.teachers",
     "icon": "ri-user-star-line",
-    "count": 0
+    "visible": true
   },
   {
     "to": "/home/subjects",
     "name": "sidebar.subjects",
     "icon": "ri-graduation-cap-line",
-    "count": 0
+    "visible": true
   },
   {
     "to": "/home/rooms",
     "name": "sidebar.rooms",
     "icon": "ri-door-open-line",
-    "count": 0
+    "visible": true
   },
   {
     "to": "/home/lessons",
     "name": "sidebar.lessons",
     "icon": "ri-book-marked-line",
-    "count": 0
+    "visible": true
   },
   {
     "to": "/home/templates",
     "name": "sidebar.templates",
     "icon": "ri-file-list-3-line",
-    "count": 0
+    "visible": false
   },
   {
     "to": "/home/timetables",
     "name": "sidebar.timetables",
     "icon": "ri-calendar-2-line",
-    "count": 0
+    "visible": true
   }
 ]

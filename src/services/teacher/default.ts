@@ -8,6 +8,7 @@ export function getTeacher_DEFAULT(): TeacherModel {
     subjects: [],
     availabilities: [],
     createdDate: '',
+    updatedDate: '',
     lastModifiedDate: '',
   }
 

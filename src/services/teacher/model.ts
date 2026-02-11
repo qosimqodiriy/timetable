@@ -7,6 +7,7 @@ export interface TeacherModel {
     subjects: number[];
     availabilities: AvailabilityModel[];
     createdDate: string,
+    updatedDate: string;
     lastModifiedDate: string,
 }
 

@@ -3,7 +3,7 @@ import type { ClassModel } from "./model"
 
 export function getClass_DEFAULT(): ClassModel {
   const object: ClassModel = {
-    id: null,
+    id: 0,
     availabilities: [],
     createdDate: '',
     name: '',

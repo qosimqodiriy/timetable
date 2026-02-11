@@ -29,7 +29,7 @@ const route = useRoute();
             <p class="text-sm text-gray-500 px-3" :class="_openMenubar ? '' : 'invisible'">Boshqaruv</p>
             
             <ul class="flex flex-col gap-1 flex-auto">
-                <li v-for="link of _links" :key="link.to" class="hover:bg-slate-100">
+                <li v-for="link of _links" :key="link.to" class="hover:bg-slate-100" v-show="link.visible">
                   <router-link v-if="link.to" :to="link.to" :class="route?.fullPath.includes(link.to) ? 'active_link' : ''" class="router_link flex items-center gap-2 p-3" @click="_menubar = false">
                     <i :class="link.icon" class="text-specific-icon-color leading-[100%] text-xl"></i>
                     <p v-if="_openMenubar" class="line-clamp-1 overflow-hidden whitespace-nowrap">{{ $t(link.name) }}</p>

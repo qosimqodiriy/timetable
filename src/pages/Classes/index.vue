@@ -91,7 +91,7 @@ loadItems();
                     <template #prefix><i class="ri-search-line text-gray-400"></i></template>
                 </el-input>
             </div>
-            <el-button @click="openModal(null)" type="primary" plain size="large" class="!rounded-xl shadow-sm">
+            <el-button @click="openModal(null)" type="primary" plain>
                 <i class="ri-add-line mr-1 text-lg"></i> Sinf qo'shish
             </el-button>
         </div>

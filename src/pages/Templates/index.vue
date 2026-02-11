@@ -68,10 +68,10 @@ loadItems();
             </div>
 
             <div class="flex gap-2 w-full md:w-auto">
-                <el-button @click="_importVisible = true" size="large" class="!rounded-xl shadow-sm">
+                <el-button @click="_importVisible = true" plain>
                     <i class="ri-upload-cloud-2-line mr-2 text-lg"></i> Import
                 </el-button>
-                <el-button @click="openModal(null)" type="primary" size="large" class="!rounded-xl shadow-sm">
+                <el-button @click="openModal(null)" type="primary" plain>
                     <i class="ri-add-line mr-1 text-lg"></i> Andoza qo'shish
                 </el-button>
             </div>
@@ -109,7 +109,7 @@ loadItems();
                     </template>
                 </el-table-column>
 
-                <el-table-column label="Amallar" width="180" align="right">
+                <el-table-column label="Amallar" width="180">
                     <template #default="{ row }">
                         <div class="flex justify-end gap-1">
                             <el-tooltip content="Tahrirlash" placement="top">

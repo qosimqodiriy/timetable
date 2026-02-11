@@ -7,5 +7,7 @@ export interface SubjectModel {
     emoji: string | null;
     color: string | null;
     weight: number | null;
+    createdDate: string | Date;
+    updatedDate: string | Date;
     availabilities: AvailabilityModel[] | null;
 }

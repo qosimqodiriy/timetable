@@ -8,6 +8,8 @@ export function getSubject_DEFAULT(): SubjectModel {
     availabilities: [],
     emoji: '',
     color: '',
+    createdDate: '',
+    updatedDate: '',
     weight: 0,
   }
 

@@ -90,7 +90,7 @@ loadItems();
                 </el-input>
             </div>
 
-            <el-button @click="openModal(null)" type="primary" size="large" class="!rounded-xl shadow-sm">
+            <el-button @click="openModal(null)" type="primary" plain>
                 <i class="ri-add-line mr-1 text-lg"></i> O'qituvchi qo'shish
             </el-button>
         </div>
@@ -184,7 +184,7 @@ loadItems();
                     </template>
                 </el-table-column>
 
-                <el-table-column label="Harakatlar" width="120" align="right">
+                <el-table-column label="Harakatlar" width="120">
                     <template #default="{ row }">
                         <div class="flex justify-end gap-3 px-2">
                             <i @click.stop="openModal(row)" class="ri-edit-2-line cursor-pointer text-blue-500 text-lg transition-colors"></i>

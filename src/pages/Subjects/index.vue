@@ -90,7 +90,7 @@ loadItems();
                 </el-input>
             </div>
 
-            <el-button @click="openModal(null)" type="primary" size="large" class="!rounded-xl shadow-sm">
+            <el-button @click="openModal(null)" type="primary" plain>
                 <i class="ri-add-line mr-1 text-lg"></i> Fan qo'shish
             </el-button>
         </div>
@@ -138,7 +138,7 @@ loadItems();
                 <el-table-column label="Fan nomi" min-width="200">
                     <template #default="{ row }">
                         <div class="flex items-center gap-3 px-1">
-                            <div class="w-9 h-9 rounded-lg flex items-center justify-center font-bold text-lg border transition-all" :style="{  backgroundColor: (row.color || '#3b82f6') + '15',  color: row.color || '#3b82f6', borderColor: (row.color || '#3b82f6') + '30' }">
+                            <div class="w-9 h-9 rounded-lg flex items-center justify-center font-bold text-lg border transition-all uppercase" :style="{  backgroundColor: (row.color || '#3b82f6') + '15',  color: row.color || '#3b82f6', borderColor: (row.color || '#3b82f6') + '30' }">
                                 {{ row.emoji || row.name?.charAt(0) }}
                             </div>
                             <span class="font-semibold text-gray-800">{{ row.name }}</span>
@@ -173,7 +173,7 @@ loadItems();
                     </template>
                 </el-table-column>
 
-                <el-table-column label="Harakatlar" width="120" align="right">
+                <el-table-column label="Harakatlar" width="120">
                     <template #default="{ row }">
                         <div class="flex justify-end gap-3 px-2">
                             <i @click.stop="openModal(row)" class="ri-edit-2-line cursor-pointer text-blue-500 text-lg transition-colors"></i>

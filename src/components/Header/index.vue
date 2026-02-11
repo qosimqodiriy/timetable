@@ -49,7 +49,7 @@ const handleCommand = async () => {
       <el-dropdown trigger="click" popper-class="my-custom-dropdown" placement="bottom-end" @command="handleCommand">
         <div class="flex items-center gap-2 cursor-pointer transition-colors outline-none">
           <div
-            class="w-8 h-8 flex items-center justify-center rounded-full bg-gray-100 border border-gray-200 text-sm font-semibold text-gray-600 shrink-0">
+            class="w-8 h-8 flex items-center justify-center rounded-full bg-white border border-gray-200 text-sm font-semibold text-gray-600 shrink-0">
             SA</div>
           <span class="text-sm font-medium text-gray-700 hidden sm:block">saydaliyevelmurod01</span>
         </div>

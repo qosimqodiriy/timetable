@@ -68,7 +68,7 @@ loadItems();
                 <el-input v-model="_params.search" placeholder="Qidirish" clearable style="width: 200px;"></el-input>
             </div>
 
-            <el-button @click="openModal(null)" type="primary" size="large" class="!rounded-xl shadow-sm">
+            <el-button @click="openModal(null)" type="primary" plain>
                 <i class="ri-add-line mr-1 text-lg"></i> O'qituvchi qo'shish
             </el-button>
         </div>
@@ -113,7 +113,7 @@ loadItems();
                     </template>
                 </el-table-column>
 
-                <el-table-column label="Harakatlar" align="right" width="160">
+                <el-table-column label="Harakatlar" width="120">
                     <template #default="{ row }">
                         <div class="flex justify-end gap-1 px-2">
                             <el-button @click="openModal(row)" size="small" link class="!p-2 hover:bg-blue-50 rounded-lg group">

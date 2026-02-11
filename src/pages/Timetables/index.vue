@@ -80,7 +80,7 @@ loadItems();
                 </el-input>
             </div>
 
-            <el-button @click="openModal(null)" type="primary" size="large">
+            <el-button @click="openModal(null)" type="primary" plain>
                 <i class="ri-add-line mr-1 text-lg"></i> Jadval yaratish
             </el-button>
         </div>
@@ -156,7 +156,7 @@ loadItems();
                     </template>
                 </el-table-column>
 
-                <el-table-column label="Harakatlar" width="120" align="right">
+                <el-table-column label="Harakatlar" width="120">
                     <template #default="{ row }">
                         <div class="flex justify-end gap-2 px-2">
                             <el-button @click="openModal(row)" size="small" link class="!p-2 hover:bg-indigo-50 rounded-lg group">
