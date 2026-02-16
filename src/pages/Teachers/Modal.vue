@@ -140,7 +140,7 @@ defineExpose({ open });
 </script>
 
 <template>
-  <el-dialog v-model="_visible" :title="_formData.id ? 'O\'qituvchini tahrirlash' : 'Yangi o\'qituvchi qo\'shish'" width="680px" @close="close">
+  <el-dialog v-model="_visible" :title="_formData.id ? 'O\'qituvchini tahrirlash' : 'Yangi o\'qituvchi qo\'shish'" width="600px" @close="close">
     
     <el-form ref="_formRef" :model="_formData" :rules="rules" label-position="top">
       <div class="grid md:grid-cols-3 gap-x-4 mb-2">

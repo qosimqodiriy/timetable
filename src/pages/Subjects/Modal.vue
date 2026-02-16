@@ -144,8 +144,7 @@ defineExpose({ open });
 </script>
 
 <template>
-  <el-dialog v-model="_visible" :title="_formData.id ? 'Fanni tahrirlash' : 'Yangi fan'" width="680px"
-    class="subject-dialog" @close="close">
+  <el-dialog v-model="_visible" :title="_formData.id ? 'Fanni tahrirlash' : 'Yangi fan'" width="600px" @close="close">
     <el-form ref="_formRef" :model="_formData" :rules="rules" label-position="top">
 
       <div class="grid grid-cols-5 gap-x-4">

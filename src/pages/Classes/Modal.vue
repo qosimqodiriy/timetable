@@ -196,22 +196,21 @@ defineExpose({ open });
       </div>
 
       <div class="add_class flex flex-col gap-3 mb-5">
-        <div class="flex items-center justify-between">
+        <div class="flex items-start justify-between">
           <el-checkbox v-model="_checked">Sinflarni guruhlarga bo'lish</el-checkbox>
-          <i v-if="_checked" @click="addGroup()" class="ri-add-box-line cursor-pointer text-gray-400"></i>
+          <i v-if="_checked" @click="addGroup()" class="ri-add-box-line !leading-4 cursor-pointer text-gray-400"></i>
         </div>
 
-        <transition name="slide">
+        <el-collapse-transition>
           <div v-if="_checked" class="grid grid-cols-2 gap-3">
             <div v-for="(item, index) in _formData.groups" :key="index">
               <div class="flex items-center justify-between gap-2 p-3 py-2 border rounded-lg">
                 <el-input v-model="item.name" />
-  
                 <i @click="removeGroup(index)" class="ri-delete-bin-2-line text-gray-400 cursor-pointer !text-xl"></i>
               </div>
             </div>
           </div>
-        </transition>
+        </el-collapse-transition>
       </div>
 
 
@@ -253,27 +252,19 @@ defineExpose({ open });
 <style>
 .add_class .el-checkbox {
   height: auto !important;
+  --el-checkbox-input-width: 18px !important;
+  --el-checkbox-input-height: 18px !important;
 }
+
+.add_class .el-checkbox__label {
+  font-size: 16px !important;
+}
+
 
 .add_class .el-input__wrapper {
   padding: 0 !important;
   height: auto !important;
   border: none !important;
   border-radius: 0 !important;
-}
-
-
-.slide-enter-active,
-.slide-leave-active {
-  opacity: 1;
-  max-height: 300px;
-  transition: all 0.3s ease-out;
-}
-
-.slide-enter-from,
-.slide-leave-to {
-  opacity: 0;
-  max-height: 0;
-  transform: translateY(-10px);
 }
 </style>
