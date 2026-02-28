@@ -16,17 +16,21 @@ export function getLessonAll_DEFAULT(): LessonAllModel {
 export function getLesson_DEFAULT(): LessonModel {
   const object: LessonModel = {
     id: null,
-    classId: 0,
+    classId: null,
     class: getClass_DEFAULT(),
-    teacherId: 0,
+    teacherId: null,
     rooms: [],
     roomIds: [],
-    subjectId: 0,
-    lessonCount: 0,
+    subjectId: null,
+    lessonCount: null,
     dayOfWeek: '',
-    hour: 0,
+    hour: '',
     frequency: '',
-    period: 0,
+    period: null,
+    createdDate: '',
+    updatedDate: '',
+    groupDetails: [],
+    groupId: null,
   }
 
   return object

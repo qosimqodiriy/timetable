@@ -1,7 +1,7 @@
 import type { AvailabilityModel } from "../teacher";
 
 export interface SubjectModel {
-    id: number | null;
+    id: number;
     name: string;
     shortName: string;
     emoji: string | null;

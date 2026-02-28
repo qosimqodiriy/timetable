@@ -114,7 +114,7 @@ loadItems();
                         <div class="flex justify-end gap-1">
                             <el-tooltip content="Tahrirlash" placement="top">
                                 <el-button @click="openModal(row)" size="small" circle text class="hover:bg-blue-50 !text-gray-500 hover:!text-blue-600">
-                                    <i class="ri-edit-2-line text-lg"></i>
+                                    <i class="ri-pencil-fill text-lg"></i>
                                 </el-button>
                             </el-tooltip>
                             

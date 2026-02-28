@@ -15,16 +15,16 @@ export interface LessonAllModel {
 
 
 export interface LessonModel {
-    id: number;
-    classId: number | null;
+    id: number | any;
+    classId: number | any;
     class: ClassModel;
-    teacherId: number | null;
-    subjectId: number | null;
+    teacherId: number | any;
+    subjectId: number | any;
     rooms: RoomModel[];
     roomIds: number[];
     groupId: number | null;
     groupDetails: any[];
-    lessonCount: number;
+    lessonCount: number | any;
     dayOfWeek: WORKING_DAYS_ENUM | string | null;
     hour: string | null;
     period: number | null;

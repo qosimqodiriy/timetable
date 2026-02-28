@@ -1,7 +1,7 @@
 import type { WORKING_DAYS_ENUM } from "../core";
 
 export interface TeacherModel {
-    id: number | null;
+    id: number;
     fullName: string;
     shortName: string;
     subjects: number[];

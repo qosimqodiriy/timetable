@@ -44,10 +44,10 @@ async function submit() {
         </p>
       </div>
 
-      <div class="bg-[#F1F5F9] p-1.5 rounded-2xl flex mb-8 relative">
+      <div class="bg-[#F1F5F9] p-1 rounded-2xl flex mb-5 relative">
         <div 
-          class="absolute top-1.5 bottom-1.5 bg-white rounded-[10px] shadow-sm transition-all duration-300 ease-in-out"
-          :style="{ width: 'calc(50% - 6px)', transform: isLogin ? 'translateX(0)' : 'translateX(100%)' }"
+          class="absolute top-1 bottom-1 bg-white rounded-[12px] shadow-sm transition-all duration-300 ease-in-out"
+          :style="{ width: 'calc(50% - 4px)', transform: isLogin ? 'translateX(0)' : 'translateX(100%)' }"
         ></div>
         <button 
           @click="isLogin = true"
@@ -73,7 +73,7 @@ async function submit() {
               type="email" 
               v-model="_formData.email"
               placeholder="Enter your email"
-              class="w-full px-5 py-3.5 bg-[#F1F5F9] border-2 border-transparent focus:border-[#1A56FF] focus:bg-white rounded-xl outline-none transition-all placeholder:text-gray-400"
+              class="w-full px-5 py-2.5 bg-[#F1F5F9] border-2 border-transparent focus:border-[#1A56FF] focus:bg-white rounded-xl outline-none transition-all placeholder:text-gray-400"
               required
             />
           </div>
@@ -84,7 +84,7 @@ async function submit() {
               <input 
               v-model="_formData.password"
                 placeholder="Enter your password"
-                class="w-full px-5 py-3.5 bg-[#F1F5F9] border-2 border-transparent focus:border-[#1A56FF] focus:bg-white rounded-xl outline-none transition-all placeholder:text-gray-400"
+                class="w-full px-5 py-2.5 bg-[#F1F5F9] border-2 border-transparent focus:border-[#1A56FF] focus:bg-white rounded-xl outline-none transition-all placeholder:text-gray-400"
                 required
               />
             </div>
@@ -92,19 +92,19 @@ async function submit() {
 
           <button 
             type="submit" v-loading="_loading"
-            class="w-full py-4 bg-[#1A56FF] hover:bg-blue-700 text-white font-bold rounded-xl shadow-[0_10px_25px_rgba(26,86,255,0.25)] transition-all active:scale-[0.98] mt-2"
+            class="w-full py-3 bg-[#1A56FF] hover:bg-blue-700 text-white font-bold rounded-xl shadow-[0_5px_15px_rgba(26,86,255,0.25)] transition-all active:scale-[0.98] mt-2"
           >
             {{ isLogin ? 'Kirish' : "Ro'yxatdan o'tish" }}
           </button>
 
-          <div class="relative flex items-center justify-center py-3">
+          <div class="relative flex items-center justify-center py-1">
             <div class="border-t border-gray-100 w-full"></div>
             <span class="bg-white px-4 text-[13px] font-medium text-gray-400 absolute">Or continue with</span>
           </div>
 
           <button 
             type="button"
-            class="w-full py-3.5 border-2 border-gray-100 rounded-xl flex items-center justify-center gap-3 hover:bg-gray-50 transition-all active:scale-[0.98]"
+            class="w-full py-2.5 border-2 border-gray-100 rounded-xl flex items-center justify-center gap-3 hover:bg-gray-50 transition-all active:scale-[0.98]"
           >
             <img src="https://www.svgrepo.com/show/475656/google-color.svg" class="w-5 h-5" alt="Google">
             <span class="font-bold text-[#1E293B] text-[15px]">Continue with Google</span>

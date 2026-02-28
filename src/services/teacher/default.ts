@@ -2,7 +2,7 @@ import { type AvailabilityModel, type TeacherModel, type TeacherSubjectModel } f
 
 export function getTeacher_DEFAULT(): TeacherModel {
   const object: TeacherModel = {
-    id: null,
+    id: 0,
     fullName: '',
     shortName: '',
     subjects: [],

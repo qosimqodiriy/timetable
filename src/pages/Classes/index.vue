@@ -2,7 +2,7 @@
 import { ref } from 'vue';
 import TheModal from './Modal.vue';
 import { useRoute, useRouter } from 'vue-router';
-import { formatDate_UTIL, SCHOOL_WORKING_DAYS } from '@/utils';
+import { formatDate_UTIL, getIconUrl_UTIL, SCHOOL_WORKING_DAYS } from '@/utils';
 import { OPEN_DELETE_MODAL } from '@/components/DeleteModal/store';
 import { getClasses_API, type ClassModel } from '@/services/class';
 import { getBaseList_DEFAULT, getBaseParams_DEFAULT, type BaseListModel, type BaseParamsModel } from '@/services/network';
@@ -44,6 +44,7 @@ const checkAvailability = (availabilities: any[], dayKey: string, period: number
 async function loadItems() {
     _loading.value = true;
     const { page = 1, search = '' } = route.query;
+    _params.value.size = 15;
     _params.value.page = Number(page);
     _params.value.search = String(search);
 
@@ -92,7 +93,8 @@ loadItems();
                 </el-input>
             </div>
             <el-button @click="openModal(null)" type="primary" plain>
-                <i class="ri-add-line mr-1 text-lg"></i> Sinf qo'shish
+                <i class="ri-add-line text-lg"></i>
+                <p class="hidden md:block ml-1">Sinf qo'shish</p>
             </el-button>
         </div>
 
@@ -183,9 +185,10 @@ loadItems();
                 <el-table-column label="Harakatlar" width="120">
                     <template #default="{ row }">
                         <div class="flex items-center gap-3">
-                            <i @click.stop="openModal(row)" class="ri-edit-2-line cursor-pointer text-blue-500 text-lg transition-colors"></i>
-                            <i @click.stop="copyItem(row)" class="ri-file-copy-line cursor-pointer text-gray-400 text-lg transition-colors"></i>
-                            <i @click.stop="deleteItem(row)" class="ri-delete-bin-6-line cursor-pointer text-red-500 text-lg transition-colors"></i>
+                            <i @click.stop="openModal(row)" class="ri-pencil-fill cursor-pointer text-blue-500 text-lg transition-colors"></i>
+                            <img @click.stop="copyItem(row)" class="h-5 cursor-pointer" :src="getIconUrl_UTIL('copy.png')" alt="">
+                            <img @click.stop="deleteItem(row)" class="h-5 cursor-pointer" :src="getIconUrl_UTIL('delete.png')" alt="">
+
                         </div>
                     </template>
                 </el-table-column>

@@ -2,7 +2,7 @@ import type { SubjectModel } from "./model"
 
 export function getSubject_DEFAULT(): SubjectModel {
   const object: SubjectModel = {
-    id: null,
+    id: 0,
     name: '',
     shortName: '',
     availabilities: [],

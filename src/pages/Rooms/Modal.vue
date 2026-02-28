@@ -145,7 +145,7 @@ defineExpose({ open });
         </el-form-item>
       </div>
 
-      <div class="availability-section border border-green-200 rounded-2xl p-4 mb-5 bg-green-50/30">
+      <div class="availability-section border border-green-500 rounded-2xl p-4 mb-5 bg-green-50/30">
         <div class="flex items-center justify-between mb-4 px-1">
           <div class="flex items-center gap-2 text-gray-600">
             <i class="ri-calendar-check-line text-lg text-green-600"></i>
@@ -164,7 +164,7 @@ defineExpose({ open });
           <template v-for="day in SCHOOL_WORKING_DAYS" :key="day.key">
             <div @click="toggleRow(day.key)" class="h-8 flex items-center px-2 bg-white border border-gray-200 rounded-md font-bold text-gray-600 text-[11px] shadow-sm cursor-pointer hover:bg-blue-50 transition-all select-none">{{ day.label.substring(0, 3) }}</div>
             
-            <div v-for="p in periods" :key="p" @click="toggleAvailability(day.key, p)"  :class="[isAvailable(day.key, p) ? 'bg-[#52c41a] border-[#52c41a] text-white' : 'bg-white border-gray-200 text-gray-300']"  class="h-8 flex items-center justify-center border rounded-md cursor-pointer transition-all active:scale-95 shadow-sm text-xs">
+            <div v-for="p in periods" :key="p" @click="toggleAvailability(day.key, p)"  :class="[isAvailable(day.key, p) ? 'bg-[#00c951] border-[#00c951] text-white' : 'bg-white border-gray-200 text-gray-300']"  class="h-8 flex items-center justify-center border rounded-md cursor-pointer transition-all active:scale-95 shadow-sm text-xs">
               <span v-if="isAvailable(day.key, p)" class="font-medium text-base">✓</span>
               <span v-else class="opacity-30">—</span>
             </div>

@@ -2,7 +2,8 @@ import axios from "axios";
 import { logout_HANDLER } from "./handler";
 import { ElNotification } from "element-plus";
 
-let baseURL = "http://68.183.8.75:8080/api";
+// let baseURL = "http://68.183.8.75:8080/api";
+let baseURL = "http://136.114.26.167:8080/api";
 
 
 export const axiosInstance = axios.create({

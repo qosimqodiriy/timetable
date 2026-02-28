@@ -2,7 +2,7 @@
 import { ref } from 'vue';
 import TheModal from './Modal.vue';
 import { useRoute, useRouter } from 'vue-router';
-import { formatDate_UTIL, SCHOOL_WORKING_DAYS } from '@/utils';
+import { formatDate_UTIL, getIconUrl_UTIL, SCHOOL_WORKING_DAYS } from '@/utils';
 import { getTeachers_API, type TeacherModel } from '@/services/teacher';
 import { OPEN_DELETE_MODAL } from '@/components/DeleteModal/store';
 import { getBaseList_DEFAULT, getBaseParams_DEFAULT, type BaseListModel, type BaseParamsModel } from '@/services/network';
@@ -49,6 +49,7 @@ async function loadItems() {
     _loading.value = true;
     const { page = 1, search = '' } = route.query;
 
+    _params.value.size = 12;
     _params.value.page = Number(page);
     _params.value.search = String(search);
 
@@ -91,13 +92,14 @@ loadItems();
             </div>
 
             <el-button @click="openModal(null)" type="primary" plain>
-                <i class="ri-add-line mr-1 text-lg"></i> O'qituvchi qo'shish
+                <i class="ri-add-line text-lg"></i> 
+                <p class="hidden md:block ml-1">O'qituvchi qo'shish</p>
             </el-button>
         </div>
 
         <div v-loading="_loading" class="border rounded-2xl overflow-hidden bg-white shadow-sm transition-all">
 
-            <el-table :data="_items.content" style="width: 100%" row-key="id" :expand-row-keys="expandedRowKeys" :header-cell-style="{ background: '#fff', color: '#111827', fontWeight: 'bold', height: '56px', borderBottom: '1px solid #f3f4f6' }">
+            <el-table table-layout="auto" :data="_items.content" style="width: 100%" row-key="id" :expand-row-keys="expandedRowKeys" :header-cell-style="{ background: '#fff', color: '#111827', fontWeight: 'bold', height: '56px', borderBottom: '1px solid #f3f4f6' }">
                 <el-table-column type="expand" width="1" class-name="hide-expand-icon">
                     <template #default="{ row }">
                         <div class="expanded-row-wrapper">
@@ -187,9 +189,9 @@ loadItems();
                 <el-table-column label="Harakatlar" width="120">
                     <template #default="{ row }">
                         <div class="flex justify-end gap-3 px-2">
-                            <i @click.stop="openModal(row)" class="ri-edit-2-line cursor-pointer text-blue-500 text-lg transition-colors"></i>
-                            <i @click.stop="copyItem(row)" class="ri-file-copy-line cursor-pointer text-gray-400 text-lg transition-colors"></i>
-                            <i @click.stop="deleteItem(row)" class="ri-delete-bin-6-line cursor-pointer text-red-500 text-lg transition-colors"></i>
+                            <i @click.stop="openModal(row)" class="ri-pencil-fill cursor-pointer text-blue-500 text-lg transition-colors"></i>
+                            <img @click.stop="copyItem(row)" class="h-5 cursor-pointer" :src="getIconUrl_UTIL('copy.png')" alt="">
+                            <img @click.stop="deleteItem(row)" class="h-5 cursor-pointer" :src="getIconUrl_UTIL('delete.png')" alt="">
                         </div>
                     </template>
                 </el-table-column>

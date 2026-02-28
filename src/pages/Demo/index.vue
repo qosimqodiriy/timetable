@@ -117,7 +117,7 @@ loadItems();
                     <template #default="{ row }">
                         <div class="flex justify-end gap-1 px-2">
                             <el-button @click="openModal(row)" size="small" link class="!p-2 hover:bg-blue-50 rounded-lg group">
-                                <i class="ri-edit-2-line text-gray-400 group-hover:text-blue-500 transition-colors"></i>
+                                <i class="ri-pencil-fill text-gray-400 group-hover:text-blue-500 transition-colors"></i>
                             </el-button>
                             <el-button @click="deleteItem(row)" size="small" link class="!p-2 hover:bg-red-50 rounded-lg group">
                                 <i class="ri-delete-bin-6-line text-gray-400 group-hover:text-red-500 transition-colors"></i>

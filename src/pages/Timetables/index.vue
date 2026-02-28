@@ -81,13 +81,14 @@ loadItems();
             </div>
 
             <el-button @click="openModal(null)" type="primary" plain>
-                <i class="ri-add-line mr-1 text-lg"></i> Jadval yaratish
+                <i class="ri-add-line text-lg"></i> 
+                <p class="hidden md:block ml-1">Jadval yaratish</p>
             </el-button>
         </div>
 
         <div v-loading="_loading" class="border rounded-2xl overflow-hidden bg-white shadow-sm transition-all">
 
-            <el-table :data="_items.content" style="width: 100%" :header-cell-style="{ background: '#f9fafb', color: '#111827', fontWeight: '600', height: '56px' }">
+            <el-table table-layout="auto" :data="_items.content" style="width: 100%" :header-cell-style="{ background: '#f9fafb', color: '#111827', fontWeight: '600', height: '56px' }">
                 
                 <el-table-column label="Jadval nomi" min-width="220">
                     <template #default="{ row }">
@@ -160,7 +161,7 @@ loadItems();
                     <template #default="{ row }">
                         <div class="flex justify-end gap-2 px-2">
                             <el-button @click="openModal(row)" size="small" link class="!p-2 hover:bg-indigo-50 rounded-lg group">
-                                <i class="ri-edit-2-line text-gray-400 group-hover:text-indigo-500 text-lg transition-colors"></i>
+                                <i class="ri-pencil-fill text-gray-400 group-hover:text-indigo-500 text-lg transition-colors"></i>
                             </el-button>
                             <el-button @click="deleteItem(row)" size="small" link class="!p-2 hover:bg-red-50 rounded-lg group">
                                 <i class="ri-delete-bin-6-line text-gray-400 group-hover:text-red-500 text-lg transition-colors"></i>

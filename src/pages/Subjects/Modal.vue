@@ -14,7 +14,6 @@ const _popoverRef = ref();
 const rules = useRules();
 const _visible = ref(false);
 const _loading = ref(false);
-const _showAvailability = ref(false);
 const emit = defineEmits(['update']);
 
 // Constants
@@ -30,14 +29,35 @@ const predefineColors = ref([
   '#8b5cf6', '#ec4899', '#6366f1', '#14b8a6',
 ]);
 
-// --- FAN NOMI AUTOCOMPLETE ---
+// --- FAN NOMI AUTOCOMPLETE LOGIKASI ---
+
+// Autocomplete uchun { value, emoji } formatida massiv qaytaramiz
 const subjectOptions = computed(() => {
-  return Object.entries(EMOJI_RECOMMENDATIONS).map(([name, emoji]) => ({ name, emoji }));
+  return Object.entries(EMOJI_RECOMMENDATIONS).map(([name, emoji]) => ({
+    value: name, // autocomplete albatta "value" fieldini izlaydi
+    emoji: emoji
+  }));
 });
 
-const onNameChange = (val: string) => {
-  const found = subjectOptions.value.find(s => s.name === val);
-  if (found) _formData.value.emoji = found.emoji;
+// Qidiruv mantiqi (inputga yozganda nima chiqishi)
+const querySearch = (queryString: string, cb: any) => {
+  const results = queryString
+    ? subjectOptions.value.filter(createFilter(queryString))
+    : subjectOptions.value;
+  cb(results);
+};
+
+// Filter funksiyasi
+const createFilter = (queryString: string) => {
+  return (subject: any) => {
+    return subject.value.toLowerCase().includes(queryString.toLowerCase());
+  };
+};
+
+// Ro'yxatdan biror fanni tanlaganda
+const handleSelect = (item: any) => {
+  _formData.value.name = item.value;
+  _formData.value.emoji = item.emoji; // emojini avtomat qo'yib beradi
 };
 
 // --- EMOJI TANLASH ---
@@ -120,9 +140,7 @@ function open(item: SubjectModel | null) {
 
 function close() {
   _visible.value = false;
-  // Modal yopilganda popoverni ham majburan yopamiz
   _popoverRef.value?.hide();
-
   _formRef.value?.resetFields();
   _formData.value = getSubject_DEFAULT();
 }
@@ -148,16 +166,13 @@ defineExpose({ open });
     <el-form ref="_formRef" :model="_formData" :rules="rules" label-position="top">
 
       <div class="grid grid-cols-5 gap-x-4">
+        
         <el-form-item label="Fan nomi" prop="name" class="col-span-3">
-          <el-select v-model="_formData.name" placeholder="Masalan: Matematika" class="compact-input w-full" filterable
-            allow-create default-first-option @change="onNameChange">
-            <el-option v-for="item in subjectOptions" :key="item.name" :label="item.name" :value="item.name">
-              <div class="flex items-center justify-between">
-                <span>{{ item.name }}</span>
-                <span class="text-lg">{{ item.emoji }}</span>
-              </div>
-            </el-option>
-          </el-select>
+          <el-autocomplete v-model="_formData.name" :fetch-suggestions="querySearch" placeholder="Masalan: Matematika" class="compact-input w-full" clearable @select="handleSelect">
+            <template #default="{ item }">
+              <div class="flex items-center justify-between"><span>{{ item.value }}</span><span class="text-lg">{{ item.emoji }}</span></div>
+            </template>
+          </el-autocomplete>
         </el-form-item>
 
         <el-form-item label="Qisqa nom" prop="shortName" class="col-span-2">
@@ -165,92 +180,74 @@ defineExpose({ open });
         </el-form-item>
       </div>
 
-      <div class="grid grid-cols-5 gap-4 mb-4">
-        <div class="grid grid-cols-2 col-span-3 gap-4">
-          <el-form-item label="Emoji" prop="emoji">
-            <el-popover ref="_popoverRef" placement="bottom" :width="320" trigger="click">
-              <template #reference>
-                <el-input v-model="_formData.emoji" placeholder="😀" class="compact-input text-center font-emoji" />
-              </template>
+      <div class="grid grid-cols-3 gap-4 mb-4">
+        <el-form-item label="Emoji" prop="emoji">
+          <el-popover ref="_popoverRef" placement="bottom" :width="320" trigger="click">
+            <template #reference>
+              <el-input v-model="_formData.emoji" placeholder="😀" class="compact-input text-center font-emoji" />
+            </template>
 
-              <div class="grid grid-cols-8 gap-2 max-h-[200px] overflow-y-auto p-1 custom-scroll">
-                <div v-for="emoji in emojiList" :key="emoji" @click="selectEmoji(emoji)"
-                  class="w-8 h-8 flex items-center justify-center text-xl cursor-pointer hover:bg-blue-50 rounded transition-colors select-none">
-                  {{ emoji }}
-                </div>
+            <div class="grid grid-cols-8 gap-2 max-h-[200px] overflow-y-auto p-1 custom-scroll">
+              <div v-for="emoji in emojiList" :key="emoji" @click="selectEmoji(emoji)"
+                class="w-8 h-8 flex items-center justify-center text-xl cursor-pointer hover:bg-blue-50 rounded transition-colors select-none">
+                {{ emoji }}
               </div>
-            </el-popover>
-          </el-form-item>
+            </div>
+          </el-popover>
+        </el-form-item>
 
-          <el-form-item label="Rang" prop="color">
-            <el-color-picker v-model="_formData.color" show-alpha :predefine="predefineColors" size="large"
-              class="!w-full" />
-          </el-form-item>
+        <el-form-item label="Rang" prop="color">
+          <el-color-picker v-model="_formData.color" show-alpha :predefine="predefineColors" size="large"
+            class="!w-full" />
+        </el-form-item>
+
+        <el-form-item label="Qiyinlik (1-10)" prop="weight" class="flex-auto">
+          <el-input-number v-model="_formData.weight" :min="1" :max="10" controls-position="right"
+            class="!w-full compact-input" placeholder="1" />
+        </el-form-item>
+      </div>
+
+      <div class="availability-section border border-green-500 rounded-2xl p-4 mb-5 bg-green-50/30">
+        <div class="flex items-center justify-between mb-4 px-1">
+          <div class="flex items-center gap-2 text-gray-600">
+            <i class="ri-calendar-check-line text-lg text-green-600"></i>
+            <span class="text-sm font-medium">Fan o'tiladigan vaqtlar</span>
+          </div>
+          <div class="flex gap-2">
+            <button type="button" @click="selectAll"
+              class="px-3 py-1 text-[11px] font-bold text-green-600 border border-green-200 rounded-md bg-white hover:bg-green-50 transition-colors">Hammasini
+              tanlash</button>
+            <button type="button" @click="clearAll"
+              class="px-3 py-1 text-[11px] font-bold text-red-500 border border-red-100 rounded-md bg-white hover:bg-red-50 transition-colors">Tozalash</button>
+          </div>
         </div>
 
-        <div class="col-span-2 flex items-center gap-4">
-          <el-form-item label="Qiyinlik (1-10)" prop="weight" class="flex-auto">
-            <el-input-number v-model="_formData.weight" :min="1" :max="10" controls-position="right"
-              class="!w-full compact-input" placeholder="1" />
-          </el-form-item>
+        <div class="grid grid-cols-[60px_repeat(6,1fr)] gap-1.5">
+          <div class="h-8"></div>
 
-          <button type="button" @click="_showAvailability = !_showAvailability"
-            class="flex-shrink-0 w-10 h-10 flex items-center justify-center border rounded-lg transition-all duration-200 mt-4"
-            :class="_showAvailability
-              ? 'bg-green-100 border-green-500 text-green-700'
-              : 'bg-white border-gray-300 text-gray-600 hover:bg-green-50/50'" title="Mavjudlikni ko'rsatish/yashirish">
-            <i class="ri-calendar-event-line text-lg"></i>
-          </button>
+          <div v-for="p in periods" :key="p" @click="toggleColumn(p)"
+            class="h-8 flex items-center justify-center bg-white border border-gray-200 rounded-md font-bold text-gray-600 text-[11px] shadow-sm cursor-pointer hover:bg-blue-50 transition-all select-none">
+            P{{ p }} </div>
+
+          <template v-for="day in SCHOOL_WORKING_DAYS" :key="day.key">
+            <div @click="toggleRow(day.key)"
+              class="h-8 flex items-center px-2 bg-white border border-gray-200 rounded-md font-bold text-gray-600 text-[11px] shadow-sm cursor-pointer hover:bg-blue-50 transition-all select-none">
+              {{ day.label.substring(0, 3) }}
+            </div>
+
+            <div v-for="p in periods" :key="p" @click="toggleAvailability(day.key, p)"
+              :class="[isAvailable(day.key, p) ? 'bg-[#00c951] border-[#00c951] text-white' : 'bg-white border-gray-200 text-gray-300']"
+              class="h-8 flex items-center justify-center border rounded-md cursor-pointer transition-all active:scale-95 shadow-sm text-xs">
+              <span v-if="isAvailable(day.key, p)" class="font-medium text-base">✓</span>
+              <span v-else class="opacity-30">—</span>
+            </div>
+          </template>
         </div>
       </div>
 
-      <el-collapse-transition>
-        <div v-if="_showAvailability"
-          class="availability-section border border-green-200 rounded-2xl p-4 mb-5 bg-green-50/30">
-          <div class="flex items-center justify-between mb-4 px-1">
-            <div class="flex items-center gap-2 text-gray-600">
-              <i class="ri-calendar-check-line text-lg text-green-600"></i>
-              <span class="text-sm font-medium">Fan o'tiladigan vaqtlar</span>
-            </div>
-            <div class="flex gap-2">
-              <button type="button" @click="selectAll"
-                class="px-3 py-1 text-[11px] font-bold text-green-600 border border-green-200 rounded-md bg-white hover:bg-green-50 transition-colors">Hammasini
-                tanlash</button>
-              <button type="button" @click="clearAll"
-                class="px-3 py-1 text-[11px] font-bold text-red-500 border border-red-100 rounded-md bg-white hover:bg-red-50 transition-colors">Tozalash</button>
-            </div>
-          </div>
-
-          <div class="grid grid-cols-[60px_repeat(6,1fr)] gap-1.5">
-            <div class="h-8"></div>
-
-            <div v-for="p in periods" :key="p" @click="toggleColumn(p)"
-              class="h-8 flex items-center justify-center bg-white border border-gray-200 rounded-md font-bold text-gray-600 text-[11px] shadow-sm cursor-pointer hover:bg-blue-50 transition-all select-none">
-              P{{ p }} </div>
-
-            <template v-for="day in SCHOOL_WORKING_DAYS" :key="day.key">
-              <div @click="toggleRow(day.key)"
-                class="h-8 flex items-center px-2 bg-white border border-gray-200 rounded-md font-bold text-gray-600 text-[11px] shadow-sm cursor-pointer hover:bg-blue-50 transition-all select-none">
-                {{ day.label.substring(0, 3) }}
-              </div>
-
-              <div v-for="p in periods" :key="p" @click="toggleAvailability(day.key, p)"
-                :class="[isAvailable(day.key, p) ? 'bg-[#52c41a] border-[#52c41a] text-white' : 'bg-white border-gray-200 text-gray-300']"
-                class="h-8 flex items-center justify-center border rounded-md cursor-pointer transition-all active:scale-95 shadow-sm text-xs">
-                <span v-if="isAvailable(day.key, p)" class="font-medium text-base">✓</span>
-                <span v-else class="opacity-30">—</span>
-              </div>
-            </template>
-          </div>
-        </div>
-      </el-collapse-transition>
-
       <div class="sticky bottom-0 flex justify-end gap-2 pt-2 mt-2 bg-white">
         <el-button size="default" class="!rounded-lg !h-9 !px-6" @click="close">Bekor qilish</el-button>
-        <el-button type="primary" class="!rounded-lg !h-9 !px-6 !bg-blue-600 !border-blue-600" :loading="_loading"
-          @click="submit">
-          {{ _formData.id ? 'Saqlash' : 'Qo\'shish' }}
-        </el-button>
+        <el-button type="primary" class="!rounded-lg !h-9 !px-6 !bg-blue-600 !border-blue-600" :loading="_loading" @click="submit"> {{ _formData.id ? 'Saqlash' : 'Qo\'shish' }}</el-button>
       </div>
 
     </el-form>

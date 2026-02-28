@@ -9,7 +9,7 @@ const route = useRoute();
 
 
 <template>
-  <div v-if="_menubar" class="absolute left-0 top-0 z-10 h-full w-full" @click="_menubar = false"></div>
+  <div v-if="_menubar" class="absolute left-0 top-0 z-50 h-full w-full" @click="_menubar = false"></div>
   <div class="sidebar relative" :class="[ _menubar ? 'active' : 'not_active', _openMenubar ? 'long_menubar' : 'short_menubar' ]">
     <aside class="aside webkit_scroll_none border-r border-main-stroke-color relative flex w-full h-full flex-col overflow-hidden bg-gray-100">
       <div class="h-16 flex cursor-pointer items-center p-6 border-b" @click.stop="_openMenubar = !_openMenubar">
@@ -77,7 +77,7 @@ const route = useRoute();
 .sidebar {
   width: 260px;
   height: 100%;
-  z-index: 10;
+  z-index: 99;
   flex-shrink: 0;
   transition: 0.5s;
   position: relative;
