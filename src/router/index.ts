@@ -27,7 +27,7 @@ const router = createRouter({
           path: "organization",
           name: "Organization",
           meta: {
-            title: "Tashkilot",
+            title: "Maktab",
           },
           component: () => import("@/pages/Organization/index.vue"),
         },

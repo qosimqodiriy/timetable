@@ -18,10 +18,10 @@ const route = useRoute();
       
       <div class="flex flex-col flex-auto overflow-y-auto webkit_scroll_none">
           <router-link to="/home/organization" class="flex flex-col gap-2 cursor-pointer p-6 py-4 border-b">
-            <p class="text-sm text-gray-500" :class="_openMenubar ? '' : 'invisible'">Tashkilot</p>
+            <p class="text-sm text-gray-500" :class="_openMenubar ? '' : 'invisible'">Maktab</p>
             <div class="flex items-center gap-2">
                 <i class="ri-building-line text-specific-icon-color leading-[100%] text-xl"></i>
-                <p v-if="_openMenubar" class="text-lg leading-[110%] whitespace-nowrap">Tashkilot</p>
+                <p v-if="_openMenubar" class="text-lg leading-[110%] whitespace-nowrap">Maktab</p>
             </div>
           </router-link>
     

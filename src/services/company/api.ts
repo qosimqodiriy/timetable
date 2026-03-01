@@ -15,7 +15,7 @@ export async function getCompany_API(): Promise<[BaseError, null] | [null, Compa
 
 export async function updateCompany_API(payload: CompanyModel): Promise<[null, CompanyModel] | [BaseError, null]> {
     try {
-        const response = <any> await axiosInstance.put(`/v1/company/${payload.id}`, {
+        const response = <any> await axiosInstance.put(`/v1/company`, {
             ...payload
         })
 

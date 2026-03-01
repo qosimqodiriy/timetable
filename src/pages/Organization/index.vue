@@ -88,9 +88,9 @@ loadItems();
         <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
             <div class="flex flex-col gap-1">
                 <h2 class="flex items-center gap-3 text-2xl font-extrabold text-gray-800">
-                    <i class="ri-building-2-line text-blue-600 text-3xl"></i>Tashkilot sozlamalari
+                    <i class="ri-building-2-line text-blue-600 text-3xl"></i>Maktab sozlamalari
                 </h2>
-                <p class="text-gray-500 text-sm font-medium">Maktabingiz tashkiloti tafsilotlari va konfiguratsiyalarini boshqaring</p>
+                <p class="text-gray-500 text-sm font-medium">Maktabingizni tafsilotlari va konfiguratsiyalarini boshqaring</p>
             </div>
 
             <div class="flex items-center gap-2">
@@ -123,18 +123,18 @@ loadItems();
         <div class="flex flex-col gap-5 p-5 pb-2 border rounded-2xl">
             <div class="flex flex-col gap-1">
                 <h2 class="flex items-center gap-2 font-medium text-gray-800">
-                    <i class="ri-building-2-line text-blue-600 text-xl"></i>Tashkilot sozlamalari
+                    <i class="ri-building-2-line text-blue-600 text-xl"></i>Maktab sozlamalari
                 </h2>
                 <p class="text-gray-500 text-sm font-medium">Ta'lim muassasangiz haqida asosiy ma'lumotlar</p>
             </div>
 
             <el-form :model="_item" label-width="auto" label-position="top" :class="_isEditing ? '' : 'pointer-events-none'">
-                <el-form-item label="Tashkilot nomi">
-                    <el-input v-model="_item.name" placeholder="Tashkilot nomi"></el-input>
+                <el-form-item label="Maktab nomi">
+                    <el-input v-model="_item.name" placeholder="Maktab nomi"></el-input>
                 </el-form-item>
 
                 <el-form-item label="Tavsif">
-                    <el-input v-model="_item.description" type="textarea" :autosize="{ minRows: 5, maxRows: 20 }" placeholder="Tashkilot tavsifi"></el-input>
+                    <el-input v-model="_item.description" type="textarea" :autosize="{ minRows: 5, maxRows: 20 }" placeholder="Maktab tavsifi"></el-input>
                 </el-form-item>
             </el-form>
         </div>

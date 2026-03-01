@@ -22,17 +22,32 @@ const _teachers = ref<any[]>([]);
 
 const periods = Array.from({ length: 10 }, (_, i) => i + 1);
 
-async function open(item: any | null) {
+// --- MODAL OPEN MANTIQI (YANGILANDI) ---
+// defaults: { classId: 1, teacherId: 5 ... } kabi obyekt qabul qiladi
+async function open(item: any | null, defaults: Partial<LessonModel> = {}) {
   _visible.value = true;
-  if (_classes.value.length === 0) await loadDropdownData();
+  
+  // Ma'lumotlarni yuklash (agar hali yuklanmagan bo'lsa)
+  if (_classes.value.length === 0) {
+      _loading.value = true;
+      await loadDropdownData();
+      _loading.value = false;
+  }
 
   if (item) {
+    // Tahrirlash (Edit) holati
     _formData.value = {
         ...JSON.parse(JSON.stringify(item)),
         classId: item.class?.id || item.classId,
         subjectId: item.subject?.id || item.subjectId,
         teacherId: item.teacher?.id || item.teacherId,
-        rooms: item.rooms?.map((r: any) => r.id) || [] 
+        rooms: item.rooms?.map((r: any) => r.id) || item.roomIds || [] 
+    };
+  } else {
+    // Yangi qo'shish (Add) holati, defaults ni qo'llaymiz
+    _formData.value = {
+        ...getLesson_DEFAULT(),
+        ...defaults // <-- Asosiy fokus shu yerda
     };
   }
 }
@@ -45,10 +60,12 @@ async function loadDropdownData() {
       getRoomsAll_API()
     ]);
 
-    if (!classRes[0] && classRes[1]) _classes.value = classRes[1];
-    if (!subjectRes[0] && subjectRes[1]) _subjects.value = subjectRes[1];
-    if (!teacherRes[0] && teacherRes[1]) _teachers.value = teacherRes[1];
-    if (!roomRes[0] && roomRes[1]) _rooms.value = roomRes[1];
+    // Odatda api dan { content: [...] } keladi, o'zgaruvchiga moslab yozish kerak
+    // Sizdagi yozilish usuliga ko'ra yozdim
+    if (!classRes[0] && classRes[1]) _classes.value = (classRes[1] as any).content || classRes[1];
+    if (!subjectRes[0] && subjectRes[1]) _subjects.value = (subjectRes[1] as any).content || subjectRes[1];
+    if (!teacherRes[0] && teacherRes[1]) _teachers.value = (teacherRes[1] as any).content || teacherRes[1];
+    if (!roomRes[0] && roomRes[1]) _rooms.value = (roomRes[1] as any).content || roomRes[1];
 }
 
 function close() {
@@ -56,7 +73,6 @@ function close() {
   _formRef.value?.resetFields();
   _formData.value = getLesson_DEFAULT();
 }
-
 
 async function submit() {
   _formRef.value?.validate(async (valid: boolean) => {
@@ -77,7 +93,7 @@ defineExpose({ open });
 </script>
 
 <template>
-  <el-dialog v-model="_visible" :title="_formData.id ? 'Darsni tahrirlash' : 'Yangi dars qo\'shish'" width="650px" class="lesson-dialog" @close="close">
+  <el-dialog v-model="_visible" :title="_formData.id ? 'Darsni tahrirlash' : 'Yangi dars qo\'shish'" width="650px" @close="close">
     <el-form ref="_formRef" :model="_formData" :rules="rules" label-position="top">
       
       <div class="grid grid-cols-2 gap-4 mb-2">
@@ -113,8 +129,8 @@ defineExpose({ open });
             </el-select>
         </el-form-item>
 
-        <el-form-item label="Xonalar" prop="rooms">
-            <el-select v-model="_formData.rooms" multiple collapse-tags placeholder="Xonani tanlang" class="compact-input w-full" filterable>
+        <el-form-item label="Xonalar" prop="roomIds">
+            <el-select v-model="_formData.roomIds" multiple collapse-tags placeholder="Xonani tanlang" class="compact-input w-full" filterable>
             <el-option v-for="item in _rooms" :key="item.id" :label="item.name" :value="item.id">
                 <div class="flex items-center justify-between w-full">
                     <span>{{ item.name }}</span>
@@ -127,13 +143,13 @@ defineExpose({ open });
 
       <div class="grid grid-cols-3 gap-4 mb-2">
         <el-form-item label="Hafta kuni" prop="dayOfWeek">
-          <el-select v-model="_formData.dayOfWeek" placeholder="Kun" class="compact-input w-full">
+          <el-select v-model="_formData.dayOfWeek" placeholder="Kun" class="compact-input w-full" clearable>
             <el-option v-for="day in SCHOOL_WORKING_DAYS" :key="day.key" :label="day.label" :value="day.key" />
           </el-select>
         </el-form-item>
 
         <el-form-item label="Dars soati" prop="period">
-          <el-select v-model="_formData.period" placeholder="Soat" class="compact-input w-full">
+          <el-select v-model="_formData.period" placeholder="Soat" class="compact-input w-full" clearable>
              <el-option v-for="p in periods" :key="p" :label="p + '-soat'" :value="p" />
           </el-select>
         </el-form-item>
