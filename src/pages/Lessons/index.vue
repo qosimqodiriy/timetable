@@ -45,7 +45,7 @@ const updateGlider = () => {
         gliderStyle.value = {
             left: `${activeEl.offsetLeft}px`,
             width: `${activeEl.offsetWidth}px`,
-            height: `${activeEl.offsetHeight}px`
+            height: `${activeEl.offsetHeight + 1}px`
         };
     }
 };
@@ -69,23 +69,40 @@ const groupedData = computed(() => {
     if (activeTab.value === 'classes') {
         return classes.map(cls => {
             const classLessons = lessons.filter(l => l.classId === cls.id);
-            const totalLessonsCount = classLessons.reduce((sum, l) => sum + (l.lessonCount || 0), 0);
+            const totalAssignedLessons = classLessons.reduce((sum, l) => sum + (l.lessonCount || 0), 0);
             const uniqueTeachers = new Set(classLessons.map(l => l.teacherId).filter(id => id)).size;
             const uniqueSubjects = new Set(classLessons.map(l => l.subjectId).filter(id => id)).size;
             
+            // XATOLIK TUG'IRLANDI: Sinflar uchun ham warning tekshiramiz
+            const maxAllowedLessons = calculateMaxPeriods(cls.availabilities);
+            const overbooked = totalAssignedLessons > maxAllowedLessons ? totalAssignedLessons - maxAllowedLessons : 0;
+            const isError = maxAllowedLessons === 0 || overbooked > 0;
+            
+            let warningText = '';
+            if (maxAllowedLessons === 0 && totalAssignedLessons > 0) warningText = '(Vaqt kiritilmagan)';
+            else if (overbooked > 0) warningText = `(+${overbooked})`;
+
+            let warningMsg = null;
+            if (maxAllowedLessons === 0 && totalAssignedLessons > 0) {
+                 warningMsg = `Sinf dars jadvali vaqti kiritilmagan! Jami ${totalAssignedLessons} soat biriktirilgan.`;
+            } else if (overbooked > 0) {
+                 warningMsg = `Yuklama ortib ketdi! (${overbooked} soat ortiqcha)`;
+            }
+
             return {
                 id: cls.id, title: cls.name,
                 stats: [
                     { icon: 'ri-book-read-line', text: `${classLessons.length} dars`, isWarning: false },
-                    { icon: 'ri-time-line', text: `${totalLessonsCount} jami dars`, isWarning: false, warningText: '' },
+                    // isWarning hardcode false qilingan edi, isError ga almashtirildi
+                    { icon: 'ri-time-line', text: `${totalAssignedLessons} jami dars`, isWarning: isError, warningText: warningText },
                     { icon: 'ri-graduation-cap-line', text: `${uniqueTeachers} o'qituvchi`, isWarning: false },
                     { icon: 'ri-file-text-line', text: `${uniqueSubjects} fan`, isWarning: false }
                 ],
                 items: classLessons,
                 addText: "Sinf uchun dars qo'shish",
                 editText: "Sinfni tahrirlash",
-                isError: false,
-                warningMsg: null 
+                isError: isError,
+                warningMsg: warningMsg 
             } as any;
         });
     }
@@ -252,7 +269,7 @@ onMounted(() => {
 
 <template>
     <div class="flex flex-col gap-6 w-full">
-        <div class="sticky top-0 bg-white pb-2 z-10 min-w-[800px]">
+        <div class="sticky top-0 bg-white pb-2 z-10 min-w-[750px]">
             <div class="w-full h-1 bg-white absolute -top-0.5 z-0"></div>
             <div class="flex items-center justify-between gap-4 relative">
                 <div class="relative bg-gray-100/80 p-1  rounded-full flex items-center border border-gray-200">
@@ -283,7 +300,7 @@ onMounted(() => {
             </div>
         </div>
 
-        <div v-loading="_loading" class="flex flex-col gap-3 min-h-[300px] min-w-[800px] overflow-x-auto">
+        <div v-loading="_loading" class="flex flex-col gap-3 min-h-[300px] min-w-[750px] overflow-x-auto">
             <transition name="slide-up" mode="out-in">
                 <div :key="activeTab" class="flex flex-col gap-3">
                     
@@ -372,7 +389,7 @@ onMounted(() => {
                                             </tr>
 
                                             <tr v-if="group.items.length === 0">
-                                                <td colspan="7" class="py-8 text-center text-gray-400 italic text-sm bg-white">Ushbu bo'limda darslar yo'q</td>
+                                                <td colspan="6" class="py-8 text-center text-gray-400 italic text-sm bg-white">Ushbu bo'limda darslar yo'q</td>
                                             </tr>
                                         </tbody>
                                     </table>

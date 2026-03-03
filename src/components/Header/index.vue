@@ -1,8 +1,7 @@
 <script setup lang="ts">
-import { logout_HANDLER } from '@/services/network';
 import { ref } from 'vue'
 import { useRouter } from 'vue-router';
-
+import { logout_HANDLER } from '@/services/network';
 
 const locale = ref('en')
 const router = useRouter();
@@ -17,9 +16,15 @@ const setLocale = (code: string) => {
   locale.value = code
 }
 
-const handleCommand = async () => {
-  await logout_HANDLER(true)
-  router.push('/login');
+const handleCommand = async (command: string) => {
+  if (command === 'profile') {
+    router.push('/home/profile');
+  } else if (command === 'settings') {
+    router.push('/home/settings');
+  } else if (command === 'logout') {
+    logout_HANDLER();
+    router.push('/login');
+  }
 }
 </script>
 
@@ -63,20 +68,19 @@ const handleCommand = async () => {
 
             <div class="h-px bg-gray-100 my-1"></div>
 
-            <el-dropdown-item class="!px-4 !py-2 !flex !items-center !gap-2">
+            <el-dropdown-item command="profile" class="!px-4 !py-2 !flex !items-center !gap-2">
               <i class="ri-user-line text-gray-500 text-lg leading-4"></i>
               <span>Profile</span>
             </el-dropdown-item>
 
-            <el-dropdown-item class="!px-4 !py-2 !flex !items-center !gap-2">
+            <el-dropdown-item command="settings" class="!px-4 !py-2 !flex !items-center !gap-2">
               <i class="ri-settings-3-line text-gray-500 text-lg"></i>
               <span>Settings</span>
             </el-dropdown-item>
 
             <div class="h-px bg-gray-100 my-1"></div>
 
-            <el-dropdown-item command="logout" @click="handleCommand"
-              class="!px-4 !py-2 !flex !items-center !gap-2 !text-red-600 hover:!bg-red-50">
+            <el-dropdown-item command="logout" class="!px-4 !py-2 !flex !items-center !gap-2 !text-red-600 hover:!bg-red-50">
               <i class="ri-logout-box-r-line text-lg"></i>
               <span>Log out</span>
             </el-dropdown-item>

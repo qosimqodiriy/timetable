@@ -54,6 +54,12 @@
   padding-right: 30px !important;
 }
 
+.el-form-item--label-top .el-form-item__label {
+  font-size: 12px !important;
+  line-height: 100% !important;
+  margin-bottom: 5px !important;
+}
+
 
 
 .el-checkbox {

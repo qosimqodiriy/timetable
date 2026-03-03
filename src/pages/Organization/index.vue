@@ -84,7 +84,7 @@ loadItems();
 </script>
 
 <template>
-    <div v-loading="_loading" class="flex flex-col gap-6">
+    <div v-loading="_loading" class="flex flex-col gap-6 max-w-[1200px]">
         <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
             <div class="flex flex-col gap-1">
                 <h2 class="flex items-center gap-3 text-2xl font-extrabold text-gray-800">

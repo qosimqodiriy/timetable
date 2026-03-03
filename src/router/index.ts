@@ -94,6 +94,26 @@ const router = createRouter({
           },
           component: () => import("@/pages/Timetables/index.vue"),
         },
+
+
+
+        {
+          path: "profile",
+          name: "Profile",
+          meta: {
+            title: "Profil",
+          },
+          component: () => import("@/pages/Profile/index.vue"),
+        },
+
+        {
+          path: "settings",
+          name: "Settings",
+          meta: {
+            title: "Sozlamalar",
+          },
+          component: () => import("@/pages/Settings/index.vue"),
+        },
       ]
     },
 
