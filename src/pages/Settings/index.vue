@@ -119,8 +119,8 @@ onMounted(() => {
                     <p class="text-gray-500 text-sm font-medium">Configure your school's basic information</p>
                 </div>
 
-                <el-form :model="_item" label-position="top" class="custom-form grid grid-cols-1 md:grid-cols-2 gap-x-6 gap-y-2">
-                    <el-form-item label="School Name">
+                <el-form :model="_item" label-position="top" class="custom-form grid grid-cols-1 md:grid-cols-3 gap-x-6 gap-y-2">
+                    <el-form-item label="School Name" class="md:col-span-2">
                         <el-input v-model="_item.schoolName" :readonly="!_isEditing" class="custom-input"></el-input>
                     </el-form-item>
 
@@ -136,7 +136,7 @@ onMounted(() => {
                     <p class="text-gray-500 text-sm font-medium">Configure default timetable settings</p>
                 </div>
 
-                <el-form :model="_item" label-position="top" class="custom-form grid grid-cols-1 md:grid-cols-2 gap-x-6 gap-y-2">
+                <el-form :model="_item" label-position="top" class="custom_time_picker custom-form grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-x-5 gap-y-2">
                     <el-form-item label="School Start Time">
                         <el-time-picker v-model="_item.schoolStartTime" format="HH:mm" value-format="HH:mm" :readonly="!_isEditing" :clearable="false" class="custom-time-picker w-full" />
                     </el-form-item>
@@ -163,7 +163,7 @@ onMounted(() => {
 
                 <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
                     <div v-for="day in SCHOOL_WORKING_DAYS" :key="day.key" 
-                         class="flex items-center justify-between p-3.5 px-4 rounded-[12px] border transition-all"
+                         class="flex items-center justify-between p-2.5 px-4 rounded-[12px] border transition-all"
                          :class="[
                             _item.workingDays[day.key] ? 'border-gray-300 bg-gray-50/80' : 'border-gray-200 bg-white',
                             _isEditing ? 'hover:border-gray-400 cursor-pointer' : 'opacity-80'

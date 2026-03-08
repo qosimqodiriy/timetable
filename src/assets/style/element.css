@@ -60,6 +60,15 @@
   margin-bottom: 5px !important;
 }
 
+.el-form-item__label {
+  display: block !important;
+  width: 100% !important;
+  max-width: 100% !important;
+  white-space: nowrap !important;
+  overflow: hidden !important;
+  text-overflow: ellipsis !important;
+}
+
 
 
 .el-checkbox {
@@ -126,4 +135,8 @@
 
 .el-date-editor.el-date-editor--time .el-input__wrapper {
   height: auto !important;
+}
+
+.custom_time_picker .el-date-editor.el-date-editor--time .el-input__wrapper {
+  height: 40px !important;
 }
